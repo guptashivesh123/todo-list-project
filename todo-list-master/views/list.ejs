@@ -1,0 +1,52 @@
+<%- include('header'); -%>
+
+    <div class="box" id="heading">
+        <h1>
+            <%=listTitle%>'s 
+            <!-- <form action="/delete-list" method="post" class="delete-list">
+                <input type="hidden" name="list_to_be_deleted" value="<%=listTitle %>">
+                <button type="submit" class="hovering-button">🗑️</button>
+            </form> -->
+            <br>To-do-List
+        </h1>
+    </div>
+    <div class="box">
+        <% for( let index=0; index < newListItems.length; index++ ) { %>
+            <form action="/delete_items/<%= listTitle %>" method="post">
+                <div class="item">
+                    <input type="checkbox" name="delete_list_item" onChange="this.form.submit()"
+                        value="<%= newListItems[index].name %>">
+                    <p>
+                        <%= newListItems[index].name %>
+                    </p>
+                </div>
+                <!-- <input type="hidden" name="list_name" value="<%= listTitle %> "> -->
+            </form>
+            <% } %>
+                <form class="item" action="/" method="post">
+                    <input type="text" name="newItem" placeholder="New Item" autocomplete="off">
+                    <input type="hidden" name="listName" value="<%= listTitle %>">
+                    <button type="submit" class="hovering-button">+</button>
+                </form>
+    </div>
+
+    <% if (listTitle===day) { %>
+        <br>
+        <div class="smaller-box">
+            <form class="item" action="/create-goto" method="post">
+                <input type="text" name="listname" placeholder="create/go-to another list" >
+                <button class="hovering-button" type="submit">🔍</button>
+            </form>
+        </div>
+        <% }else{ %>
+            <form action="/home" method="post">
+                <button type="submit" class="hovering-button">🏠</button>
+            </form>
+            <% } %>
+            <br>
+        <form action="/logout" method="get">
+            <button type="submit" class="hovering-button">📤</button>
+            <p>Logout</p>
+        </form>
+
+                <%- include('footer'); -%>
